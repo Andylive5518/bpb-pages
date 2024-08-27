@@ -540,18 +540,22 @@ function processVlessHeader(vlessBuffer, userID) {
 			);
 			break;
 		case 3:
-			addressLength = 16;
-			const dataView = new DataView(
-				vlessBuffer.slice(addressValueIndex, addressValueIndex + addressLength)
-			);
-			// 2001:0db8:85a3:0000:0000:8a2e:0370:7334
-			const ipv6 = [];
-			for (let i = 0; i < 8; i++) {
-				ipv6.push(dataView.getUint16(i * 2).toString(16));
-			}
-			addressValue = ipv6.join(':');
-			// seems no need add [] for ipv6
-			break;
+            return {
+				hasError: true,
+				message: `invild  addressType is ${addressType}`,
+			};
+			// addressLength = 16;
+			// const dataView = new DataView(
+			// 	vlessBuffer.slice(addressValueIndex, addressValueIndex + addressLength)
+			// );
+			// // 2001:0db8:85a3:0000:0000:8a2e:0370:7334
+			// const ipv6 = [];
+			// for (let i = 0; i < 8; i++) {
+			// 	ipv6.push(dataView.getUint16(i * 2).toString(16));
+			// }
+			// addressValue = ipv6.join(':');
+			// // seems no need add [] for ipv6
+			// break;
 		default:
 			return {
 				hasError: true,
